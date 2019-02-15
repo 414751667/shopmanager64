@@ -25,32 +25,58 @@ export default {
   },
   methods: {
     // 登陆请求
-    handleLogin () {
+    async handleLogin () {
       // 前提：api-server -> app.js
-      this.$http
-        .post(`login`, this.formdata)
-        .then(res => {
-          console.log(res)
-          //   const {
-          //     data: {
-          //       data,
-          //       meta: { msg, status }
-          //     }
-          //   } = res
-          const status = res.data.meta.status
-          if (status === 200) {
-            // 渲染home.vue
-            this.$router.push({
-              name: 'home'
-            })
-          } else {
-            // 提示框 UI
-            this.$message.error('密码错误')
-          }
+      //   this.$http
+      //     .post(`login`, this.formdata)
+
+      const res = await this.$http.post(`login`, this.formdata)
+      const {
+        data: {
+          data: {token},
+          meta: { msg, status }
+        }
+      } = res
+
+      if (status === 200) {
+        // 把正确的用户的token保存起来
+        //   存值
+        localStorage.setItem('token', token)
+        //  取值
+        //   const aa = localStorage.getItem('token')
+        //   console.log(aa)
+
+        // 渲染home.vue
+        this.$router.push({
+          name: 'home'
         })
-        .catch(err => {
-          console.log(err)
-        })
+      } else {
+        // 提示框 UI
+        this.$message.error(msg)
+      }
+      // console.log(res)
+      // .then(res => {
+      //   console.log(res)
+      //   //   const {
+      //   //     data: {
+      //   //       data,
+      //   //       meta: { msg, status }
+      //   //     }
+      //   //   } = res
+      //   const status = res.data.meta.status
+      //   if (status === 200) {
+      //     // 渲染home.vue
+      //     this.$router.push({
+      //       name: 'home'
+      //     })
+      //   } else {
+      //     // 提示框 UI
+      //     this.$message.error('密码错误')
+      //   }
+      // })
+      // .catch(err => {
+      //   console.log(err)
+      // })
     }
   }
 }
