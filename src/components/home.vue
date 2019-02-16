@@ -30,7 +30,7 @@
               <i class="el-icon-location"></i>
               <span>用户管理</span>
             </template>
-            <el-menu-item index="1-1">
+            <el-menu-item index="users">
               <i class="el-icon-menu"></i>
               <span>用户列表</span>
             </el-menu-item>
@@ -88,7 +88,9 @@
           </el-submenu>
         </el-menu>
       </el-aside>
-      <el-main class="main">Main</el-main>
+      <el-main class="main">
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -96,34 +98,34 @@
 <script>
 export default {
   // 如果用户没登陆 --> if(!token)-->改标识this.$router.push-->显示logo.vue
-  //如果登陆了 --> if(token)-->继续渲染home.vue
-  //代码位置
+  // 如果登陆了 --> if(token)-->继续渲染home.vue
+  // 代码位置
 
-  beforeMount() {
-    if (!localStorage.getItem("token")) {
+  beforeMount () {
+    if (!localStorage.getItem('token')) {
       this.$router.push({
-        name: "login"
-      });
-    this.$message.warning('请先登陆')
+        name: 'login'
+      })
+      this.$message.warning('请先登陆')
     }
   },
-  mounted() {
-    console.log(111);
+  mounted () {
+    console.log(111)
   },
-  methods:{
-    //退出
-    handleLoginout(){
-      //1.清除token
-      localStorage.clear();
-      //2.来到登陆页
+  methods: {
+    // 退出
+    handleLoginout () {
+      // 1.清除token
+      localStorage.clear()
+      // 2.来到登陆页
       this.$router.push({
-        name:'login'
-      });
-      //3.提示
-      this.$message.warning("退出成功");
+        name: 'login'
+      })
+      // 3.提示
+      this.$message.warning('退出成功')
     }
   }
-};
+}
 </script>
 
 <style>
@@ -132,10 +134,10 @@ export default {
   height: 100%;
 }
 .aside {
-  background: yellow;
+  /* background: yellow; */
 }
 .main {
-  background: green;
+  /* background: green; */
 }
 .middle {
   line-height: 60px;
