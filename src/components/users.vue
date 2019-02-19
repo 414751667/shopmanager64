@@ -365,9 +365,7 @@ export default {
       //   ContentType:text/html,
       //   Authorization:?
       // }
-
-      const AUTH_TOKEN = localStorage.getItem("token");
-      this.$http.defaults.headers.common["Authorization"] = AUTH_TOKEN;
+      // 头部
 
       const res = await this.$http.get(
         `users?query=${this.query}&pagenum=${this.pagenum}&pagesize=${
