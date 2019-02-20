@@ -107,15 +107,43 @@ export default {
       defaultProps: {
         label: "authName",
         children: "children"
-      }
+      },
+      currRoleId: -1
     };
   },
   created() {
     this.getRoles();
   },
   methods: {
+    //分配权限 - 发送请求
+    async setRights() {
+      //获取全选节点的id
+      const arr1 = this.$refs.treeDom.getCheckedKeys();
+      // console.log(arr1);
+      //获取半选节点的id
+      const arr2 = this.$refs.treeDom.getHalfCheckedKeys();
+      // console.log(arr2);
+      //ES6 展开操作运算符
+      const arr = [...arr1,...arr2];
+
+      //roleID角色id
+      const res = await this.$http.post(`roles/${this.currRoleId}/rights`,{
+        //数组方法 分割数组
+        rids:arr.join(",")
+
+      });
+      console.log(res);
+       const {
+        meta: { msg, status },
+        data
+      } = res.data;
+      if (status === 200) {
+         this.dialogFormVisible = false;
+         this.getRoles();
+      }
+    },
     //分配权限 -打开对话框
-   async showDiaSetRights(role) {
+    async showDiaSetRights(role) {
       this.currRoleId = role.id;
       // 获取数据
       const res = await this.$http.get(`rights/tree`);
