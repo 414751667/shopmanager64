@@ -59,12 +59,8 @@ export default {
   // 代码位置
 
   beforeMount () {
-    if (!localStorage.getItem('token')) {
-      this.$router.push({
-        name: 'login'
-      })
-      this.$message.warning('请先登陆')
-    }
+    
+    //判断token有没有
   },
   mounted () {
     // console.log(111)
