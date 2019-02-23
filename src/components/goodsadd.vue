@@ -160,7 +160,7 @@ export default {
       //  const res = await this.$http.post(`goods`,this.form);
       //  console.log(res);
       const res = await this.$http.post(`goods`,this.form);
-      
+
        const {
             meta: { msg, status },
             data
@@ -207,6 +207,14 @@ export default {
         if (this.selectedOptions.length !== 3) {
           //提示
           this.$message.error("请先选择三级分类!");
+          //清空数组
+          if(this.active==="2"){
+
+            this.arrDy = [];
+          }else{
+
+            this.arrStatic = [];
+          }
           return;
         }
 
